@@ -16,6 +16,10 @@ font-family: 'Source Serif Pro', serif;
   --mainHover: #0f172a;
   --secHover: #4b5563;
 }
+button:hover,
+input {
+  cursor: pointer;
+}
 #root {
   min-height: 100vh;
   position: relative;
@@ -49,4 +53,82 @@ font-family: 'Source Serif Pro', serif;
   background-image: url("./Components/images/bgc.png");
   background-position: 50%;
   background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+.formHolder button {
+  color: inherit;
+  font-family: inherit;
+  background-color: var(--mainBgc);
+  transition: 0.4s all;
+}
+.formHolder button:hover {
+  background-color: var(--mainHover);
+  scale: 1.05;
+  transition: 0.4s all;
+}
+
+.formHolder form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: clamp(20rem, 60%, 32rem);
+  height: clamp(30rem, 80%, 45rem);
+  background-color: var(--secHover);
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 8px 12px var(--mainHover);
+  color: white;
+  font-family: "DM Sans", sans-serif;
+}
+.formHolder .buttonsHolder {
+  display: flex;
+  width: 100%;
+  gap: 0.5rem;
+}
+.formHolder .buttonsHolder > button {
+  /*Signup & login switch buttons*/
+  border: none;
+  width: 50%;
+  height: 2.75rem;
+  border-radius: 0.5rem;
+}
+.formHolder label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.formHolder label > input {
+  height: 2.5rem;
+  border: 2px solid var(--mainHover);
+  border-radius: 0.3rem;
+  padding: 0.3rem;
+  outline: none;
+}
+.formHolder label > input:focus,
+.formHolder label > input:hover {
+  background-color: rgb(190, 190, 190);
+}
+#formBtn {
+  border: none;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  width: 60%;
+  align-self: center;
+  margin-top: 0.25rem;
+}
+#googleLogin {
+  width: fit-content;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: none;
+  align-self: center;
+  width: 60px;
+  margin-top: 0.25rem;
+}
+#googleLogin > img {
+  width: 24px;
+  height: auto;
 }
