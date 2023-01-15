@@ -1,38 +1,52 @@
-.App {
-  text-align: center;
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&family=Source+Serif+Pro:wght@600&display=swap");
+/*
+FONTS :
+font-family: 'DM Sans', sans-serif;
+font-family: 'Source Serif Pro', serif;
+*/
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+:root {
+  --mainBgc: #1e293b;
+  --secBgc: #d1d5db;
+  --mainHover: #0f172a;
+  --secHover: #4b5563;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+#root {
   min-height: 100vh;
+  position: relative;
+}
+.signupPage {
+  display: grid;
+  grid-template: 1fr/ 1fr 3fr;
+  /*So the div would take the whole root*/
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+.sideBar {
+  background-color: var(--mainBgc);
+  border-right: 2px double var(--mainHover);
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  padding: 1rem;
+  gap: 2rem;
   color: white;
+  font-family: "DM Sans", sans-serif;
 }
-
-.App-link {
-  color: #61dafb;
+.sideBar > img {
+  width: clamp(10rem, 60%, 15rem);
+  height: auto;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.formHolder {
+  background-color: var(--secBgc);
+  background-image: url("./Components/images/bgc.png");
+  background-position: 50%;
+  background-size: cover;
 }
