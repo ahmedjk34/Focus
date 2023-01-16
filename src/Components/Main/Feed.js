@@ -1,7 +1,11 @@
 import React from "react";
 
 function Feed() {
-  return <div>Feed</div>;
+  return (
+    <div className="feedHolder">
+      <div className="feed"></div>
+    </div>
+  );
 }
 
 export default Feed;

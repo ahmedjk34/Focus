@@ -225,3 +225,17 @@ input:hover {
 .dropDown > *:hover {
   background-color: var(--mainHover);
 }
+.feedHolder {
+  background-color: var(--secBgc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.feedHolder .feed {
+  width: clamp(30rem, 45%, 55rem);
+  height: 95%;
+  background-color: var(--secHover);
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 8px 12px var(--mainHover);
+}
