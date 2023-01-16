@@ -1,6 +1,12 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import checkValidity from "./validation";
+import { handleEmailSignup } from "../formLogic";
+import { currentUsers } from "../../../App";
 function SignupForm() {
+  useEffect(() => {
+    checkValidity(currentUsers);
+    return;
+  }, []);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -49,7 +55,12 @@ function SignupForm() {
         ></input>
         <span></span>
       </label>
-      <button id="formBtn">Signup</button>
+      <button
+        id="formBtn"
+        onClick={(e) => handleEmailSignup(e, username, email, password)}
+      >
+        Signup
+      </button>
     </>
   );
 }

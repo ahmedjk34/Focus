@@ -1,12 +1,11 @@
 //will return true if invalid , so we could
 //stop the data from sending if invalid
 // (check the form logic)
+let isValid = true;
 export default function checkValidity(users = []) {
   const username = document.getElementById("username");
   const email = document.getElementById("email");
   const password = document.getElementById("password");
-
-  let isValid = true;
   //targets each input to apply general rules
   document.querySelectorAll("input").forEach((input) => {
     input.addEventListener("input", (value) => {
@@ -40,6 +39,7 @@ export default function checkValidity(users = []) {
   //functions
   function restart(input) {
     input.nextElementSibling.innerHTML = "";
+    isValid = true;
   }
   function checkIfEmpty(input) {
     if (input.validity.valueMissing) {
@@ -74,4 +74,6 @@ export default function checkValidity(users = []) {
       }, delay);
     };
   }
+  //returns
+  return username.value && email.value && password.value && isValid;
 }

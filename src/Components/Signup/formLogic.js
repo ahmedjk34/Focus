@@ -1,11 +1,46 @@
-import { addDoc } from "firebase/fiwrestore";
+import {
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  updateProfile,
+} from "firebase/auth";
+import { addDoc } from "firebase/firestore";
 import { usersRef, auth } from "../../firebaseBasics";
-function checkUserName(usersArray) {}
-async function handleGoogle() {
+import { currentUsers } from "../../App";
+import checkValidity from "./forms/validation";
+let anonUser =
+  "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max";
+export async function handleGoogle(e) {
+  e.preventDefault();
+  const provider = new GoogleAuthProvider();
+  await signInWithPopup(auth, provider);
+  //To prevent document duplication
+  let userNotShown = true;
+  currentUsers.forEach((user) => {
+    if (user === auth.currentUser.displayName) userNotShown = false;
+  });
+  if (userNotShown)
+    await addDoc(usersRef, {
+      username: auth.currentUser.displayName,
+      profilePicture: auth.currentUser.photoURL,
+    });
+}
+export async function handleEmailSignup(e, username, email, password) {
+  e.preventDefault();
+  let isValid = checkValidity();
+  if (!isValid) return;
+  await createUserWithEmailAndPassword(auth, email, password);
+  await updateProfile(auth.currentUser, {
+    displayName: username,
+    photoURL: anonUser,
+  });
   await addDoc(usersRef, {
-    userName: auth.currentUser.displayName,
+    username: auth.currentUser.displayName,
     profilePicture: auth.currentUser.photoURL,
   });
 }
-async function handleEmailSignup(username, email, password) {}
-async function handleEmailLogin(email, password) {}
+export async function handleEmailLogin(e, email, password) {
+  e.preventDefault();
+  await signInWithEmailAndPassword(auth, email, password);
+}

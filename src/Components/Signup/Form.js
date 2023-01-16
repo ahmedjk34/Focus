@@ -4,9 +4,9 @@ import SignupForm from "./forms/SignupForm";
 import googleLogo from "../images/google.svg";
 import { currentUsers } from "../../App";
 import checkValidity from "./forms/validation";
-function Form({ currentUsers }) {
+import { handleGoogle } from "./formLogic";
+function Form() {
   const [showSignup, setShowSignup] = useState(true);
-  useEffect(() => checkValidity(currentUsers), []);
   return (
     <div className="formHolder">
       <form noValidate>
@@ -18,8 +18,12 @@ function Form({ currentUsers }) {
             Login Form
           </button>
         </div>
-        {showSignup ? <SignupForm /> : <LoginForm />}
-        <button type="button" id="googleLogin">
+        {showSignup ? (
+          <SignupForm currentUsers={currentUsers} />
+        ) : (
+          <LoginForm />
+        )}
+        <button type="button" id="googleLogin" onClick={(e) => handleGoogle(e)}>
           <img src={googleLogo}></img>
         </button>
       </form>

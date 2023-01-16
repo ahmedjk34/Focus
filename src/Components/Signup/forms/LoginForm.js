@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { handleEmailLogin } from "../formLogic";
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +33,12 @@ function LoginForm() {
         ></input>
         <span></span>
       </label>
-      <button id="formBtn">Login</button>
+      <button
+        id="formBtn"
+        onClick={(e) => handleEmailLogin(e, email, password)}
+      >
+        Login
+      </button>
     </>
   );
 }
