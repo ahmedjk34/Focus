@@ -1,8 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&family=Source+Serif+Pro:wght@600&display=swap");
-/*
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&family=Josefin+Sans:wght@500&display=swap"); /*
 FONTS :
 font-family: 'DM Sans', sans-serif;
-font-family: 'Source Serif Pro', serif;
+font-family: 'Josefin Sans', sans-serif;
 */
 * {
   padding: 0;
@@ -51,7 +50,7 @@ input {
 .formHolder {
   background-color: var(--secBgc);
   background-image: url("./Components/images/bgc.png");
-  background-position: 50%;
+  background-position: 25%;
   background-size: cover;
   display: flex;
   justify-content: center;
@@ -63,6 +62,7 @@ input {
   font-family: inherit;
   background-color: var(--mainBgc);
   transition: 0.4s all;
+  font-size: large;
 }
 .formHolder button:hover {
   background-color: var(--mainHover);
@@ -110,6 +110,10 @@ input {
 .formHolder label > input:focus,
 .formHolder label > input:hover {
   background-color: rgb(190, 190, 190);
+}
+.formHolder span {
+  color: rgb(230, 133, 133);
+  font-family: "Josefin Sans", sans-serif;
 }
 #formBtn {
   border: none;

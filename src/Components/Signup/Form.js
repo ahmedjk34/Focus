@@ -1,22 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LoginForm from "./forms/LoginForm";
 import SignupForm from "./forms/SignupForm";
-
+import googleLogo from "../images/google.svg";
+import { currentUsers } from "../../App";
+import checkValidity from "./forms/validation";
 function Form({ currentUsers }) {
   const [showSignup, setShowSignup] = useState(true);
+  useEffect(() => checkValidity(currentUsers), []);
   return (
     <div className="formHolder">
-      <form>
+      <form noValidate>
         <div className="buttonsHolder">
           <button type="button" onClick={() => setShowSignup(true)}>
-            Signup
+            Signup Form
           </button>
           <button type="button" onClick={() => setShowSignup(false)}>
-            Login
+            Login Form
           </button>
         </div>
         {showSignup ? <SignupForm /> : <LoginForm />}
-        <button>Google</button>
+        <button type="button" id="googleLogin">
+          <img src={googleLogo}></img>
+        </button>
       </form>
     </div>
   );
