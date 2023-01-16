@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import { signOut } from "firebase/auth";
-import { auth, usersRef } from "../../firebaseBasics";
+import { auth, postsRef, usersRef } from "../../firebaseBasics";
 import Nav from "./Nav";
 import Feed from "./Feed";
-import { onSnapshot } from "firebase/firestore";
+import { onSnapshot, serverTimestamp } from "firebase/firestore";
+import { addDoc } from "firebase/firestore";
+import { uuidv4 } from "@firebase/util";
 export let usersInfo;
 function Main() {
   useEffect(() => {
@@ -21,3 +23,23 @@ function Main() {
 }
 
 export default Main;
+//Create post function
+// async function createPost() {
+//   await addDoc(postsRef, {
+//     id: uuidv4(),
+//     author: auth.currentUser,
+//     img: "https://images.pexels.com/photos/2363/france-landmark-lights-night.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+//     date: serverTimestamp(),
+//     likesCounter: 7,
+//     likedUsers: ["Josh"],
+//     url: "",
+//     comments: [
+//       {
+//         commentAuthor: "Josh",
+//         profilePicture:
+//           "https://images.pexels.com/photos/2363/france-landmark-lights-night.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+//         comment: "My new profile picture !",
+//       },
+//     ],
+//   });
+// }

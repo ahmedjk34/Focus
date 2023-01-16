@@ -19,6 +19,11 @@ button:hover,
 input:hover {
   cursor: pointer;
 }
+body {
+  /*To fix white part the the bottom of the page
+  when scrolling*/
+  background-color: var(--secBgc);
+}
 #root {
   min-height: 100vh;
   position: relative;
@@ -232,10 +237,79 @@ input:hover {
   justify-content: center;
 }
 .feedHolder .feed {
-  width: clamp(30rem, 45%, 55rem);
+  width: clamp(25rem, 30%, 30rem);
   height: 95%;
   background-color: var(--secHover);
   border-radius: 1rem;
   padding: 1rem;
   box-shadow: 8px 12px var(--mainHover);
+}
+.post {
+  width: 100%;
+  min-height: 35rem;
+  color: white;
+  border: 1px solid white;
+  display: flex;
+  flex-direction: column;
+}
+
+.postHeader {
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem;
+}
+.postHeader > img {
+  /*The author pfp*/
+  height: 2.5rem;
+  width: auto;
+  border: 2px solid white;
+  border-radius: 2rem;
+}
+.postMain {
+  border-top: 1px solid white;
+  margin-top: 0.25rem;
+  width: 100%;
+  height: 25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  border-bottom: 1px solid white;
+}
+.postMain > img {
+  height: 15rem;
+  width: auto;
+}
+.caption {
+  display: flex;
+  flex-direction: column;
+  font-size: large;
+  padding: 0.5rem;
+  height: 100%;
+}
+.postInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid white;
+}
+.postInfo > span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: x-large;
+}
+.icon {
+  width: 30px;
+  height: auto;
+}
+.postFooter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem;
 }
