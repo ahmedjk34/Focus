@@ -27,9 +27,11 @@ export default Main;
 // async function createPost() {
 //   await addDoc(postsRef, {
 //     id: uuidv4(),
-//     author: auth.currentUser,
+//     author: auth.currentUser.displayName,
+//     authorPfp: auth.currentUser.photoURL,
 //     img: "https://images.pexels.com/photos/2363/france-landmark-lights-night.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
 //     date: serverTimestamp(),
+//     caption: "Paris is the best place to be 💜",
 //     likesCounter: 7,
 //     likedUsers: ["Josh"],
 //     url: "",
