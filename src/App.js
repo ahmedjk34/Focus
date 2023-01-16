@@ -1,19 +1,22 @@
 import { onAuthStateChanged } from "firebase/auth";
-import { getDocs } from "firebase/firestore";
-import React, { useEffect } from "react";
+import { getDocs, onSnapshot } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Main from "./Components/Main/Main";
 import Signup from "./Components/Signup/Signup";
 import { auth, usersRef } from "./firebaseBasics";
+export let currentUsers = [];
 function App() {
-  let user = auth.currentUser;
-  let currentUsers = [];
+  const [user, setUser] = useState(auth.currentUser);
   useEffect(() => {
-    getDocs(usersRef).then((documents) =>
-      documents.docs.forEach((doc) => currentUsers.push(doc.data().userName))
-    );
+    onSnapshot(usersRef, (documents) => {
+      currentUsers = [];
+      documents.docs.forEach((doc) => {
+        currentUsers.push(doc.data().username);
+      });
+    });
   }, []);
-  onAuthStateChanged(auth, (u) => (user = u));
+  onAuthStateChanged(auth, (u) => setUser(u));
   return (
     <>{user ? <Main></Main> : <Signup currentUsers={currentUsers}></Signup>}</>
   );

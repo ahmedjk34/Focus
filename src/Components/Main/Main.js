@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { signOut } from "firebase/auth";
-import { auth } from "../../firebaseBasics";
+import { auth, usersRef } from "../../firebaseBasics";
+import Nav from "./Nav";
+import Feed from "./Feed";
+import { onSnapshot } from "firebase/firestore";
+export let usersInfo;
 function Main() {
-  return;
+  useEffect(() => {
+    usersInfo = [];
+    onSnapshot(usersRef, (snapshot) => {
+      snapshot.docs.forEach((doc) => usersInfo.push(doc.data()));
+    });
+  }, []);
+  return (
+    <div className="main">
+      <Nav />
+      <Feed />
+    </div>
+  );
 }
 
 export default Main;
-{
-  /* <button onClick={(e) => signOut(auth)}>d</button> */
-}
