@@ -20,4 +20,4 @@ const db = getFirestore(app);
 const auth = getAuth();
 const usersRef = collection(db, "Users");
 const postsRef = collection(db, "Posts");
-export { auth, usersRef, postsRef };
+export { auth, usersRef, postsRef, db };

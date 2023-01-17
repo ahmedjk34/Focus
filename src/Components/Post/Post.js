@@ -3,8 +3,9 @@ import { UserInfo } from "firebase/auth";
 import likeIcon from "../images/likeIcon.svg";
 import commentIcon from "../images/commentIcon.svg";
 import shareIcon from "../images/shareIcon.svg";
-import { onSnapshot, query, where } from "firebase/firestore";
+import { getDoc, getDocs, onSnapshot, query, where } from "firebase/firestore";
 import { postsRef } from "../../firebaseBasics";
+import { handleLike } from "./postFunctionality";
 function Post({ data }) {
   const {
     author,
@@ -20,7 +21,15 @@ function Post({ data }) {
   } = data;
   const [currentLikes, setCurrentLikes] = useState(likesCounter);
   const [commentsArray, setCommentsArray] = useState(comments);
+  const [likedUsersArray, setLikedUsersArray] = useState(likedUsers);
+  const [docId, setDocId] = useState("");
+  const [icon, setIcon] = useState(likeIcon);
   const currentPost = query(postsRef, where("id", "==", id));
+  (function () {
+    getDocs(currentPost).then((snapshot) =>
+      snapshot.docs.forEach((doc) => setDocId(doc.id))
+    );
+  })();
   useEffect(
     () =>
       onSnapshot(currentPost, (snapshot) =>
@@ -28,6 +37,7 @@ function Post({ data }) {
           if (change.type === "modified") {
             setCurrentLikes(change.doc.data().likesCounter);
             setCommentsArray(change.doc.data().comments);
+            setLikedUsersArray(change.doc.data().likedUsers);
           }
         })
       ),
@@ -42,9 +52,9 @@ function Post({ data }) {
       <div className="postMain">
         <img src={img}></img>
         <div className="postInfo">
-          <span>
+          <span onClick={() => handleLike(likedUsersArray, docId, setIcon)}>
             {currentLikes}
-            <img className="icon" src={likeIcon}></img>
+            <img id="likeIcon" className="icon" src={icon}></img>
           </span>
           <span>
             <img className="icon" src={commentIcon}></img>
