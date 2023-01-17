@@ -59,7 +59,7 @@ function Post({ data }) {
         </div>
       </div>
       <div className="postFooter">
-        <h5>Show all comments</h5>
+        <h5>{commentsArray.length > 2 ? "View all comments" : null}</h5>
         <p>
           {commentsArray[0]
             ? `${commentsArray[0].commentAuthor} : ${commentsArray[0].comment}`
