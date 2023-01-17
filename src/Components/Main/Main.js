@@ -6,15 +6,8 @@ import Feed from "./Feed";
 import { doc, onSnapshot, serverTimestamp } from "firebase/firestore";
 import { addDoc } from "firebase/firestore";
 import { uuidv4 } from "@firebase/util";
-export let usersInfo;
 
 function Main() {
-  useEffect(() => {
-    usersInfo = [];
-    onSnapshot(usersRef, (snapshot) => {
-      snapshot.docs.forEach((doc) => usersInfo.push(doc.data()));
-    });
-  }, []);
   return (
     <div className="main">
       <Nav />

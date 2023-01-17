@@ -5,6 +5,10 @@ import "./App.css";
 import Main from "./Components/Main/Main";
 import Signup from "./Components/Signup/Signup";
 import { auth, usersRef } from "./firebaseBasics";
+import { Route, Routes } from "react-router-dom";
+import PostPage from "./Components/Post/PostPage";
+import Profile from "./Components/Profile/Profile";
+
 export let currentUsers = [];
 function App() {
   const [user, setUser] = useState(auth.currentUser);
@@ -18,7 +22,16 @@ function App() {
   }, []);
   onAuthStateChanged(auth, (u) => setUser(u));
   return (
-    <>{user ? <Main></Main> : <Signup currentUsers={currentUsers}></Signup>}</>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <>{user ? <Main /> : <Signup currentUsers={currentUsers} />}</>
+        }
+      ></Route>
+      <Route path="/post/:id" element={<PostPage />}></Route>
+      <Route path="/profile/:username" element={<Profile />}></Route>
+    </Routes>
   );
 }
 
