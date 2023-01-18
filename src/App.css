@@ -195,6 +195,7 @@ body {
   align-items: center;
   transition: 0.4s all ease-in;
   position: relative;
+  z-index: 1;
 }
 .profileNav img {
   width: 3rem;
@@ -263,9 +264,9 @@ so i could style the post main page probably
   color: white;
   display: flex;
   flex-direction: column;
-  background-color: var(--secHover);
+  background-color: black;
   border-radius: 1rem;
-  box-shadow: 8px 12px var(--mainHover);
+  box-shadow: 8px 12px rgb(26, 26, 26);
 }
 
 .feed .postHeader {
@@ -322,9 +323,15 @@ so i could style the post main page probably
   gap: 0.25rem;
   font-size: x-large;
 }
-.feed.icon {
+.feed .icon {
   width: 30px;
   height: auto;
+  transition: all 0.2s;
+}
+.icon:hover {
+  scale: 1.1;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 .feed .postFooter {
   display: flex;
@@ -332,10 +339,162 @@ so i could style the post main page probably
   gap: 0.25rem;
   padding: 0.5rem;
 }
-.loading,
-.caught {
+.loading {
   align-self: center;
+  width: 40px;
+  height: auto;
 }
 .hidden {
   visibility: hidden;
+}
+/*Post page*/
+.loadingPage {
+  width: 5vw;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.postContainer {
+  overflow-y: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-family: "DM Sans", sans-serif;
+}
+.postContainer .post {
+  scale: 0.93;
+  display: grid;
+  width: clamp(40rem, 60%, 70rem);
+  height: clamp(40rem, 75%, 90rem);
+  background-color: black;
+  border-radius: 1rem;
+  box-shadow: 8px 12px rgb(26, 26, 26);
+  grid-template: 25% 75% / 50% 50%;
+  overflow-y: hidden;
+}
+
+.postContainer .postMain {
+  border-right: 1px solid white;
+  grid-row: 1/3;
+}
+.postContainer .postMain img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  object-position: 50%;
+}
+.postContainer .postHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-bottom: 1px solid white;
+}
+.authorInfo {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+}
+.authorInfo img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  object-position: 50%;
+
+  border-radius: 3rem;
+}
+.postContainer .postFooter {
+  display: grid;
+  grid-template: 1fr 3rem 60px /1fr;
+}
+.postContainer .icon {
+  width: 30px;
+  height: auto;
+}
+.postContainer .postInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-top: 1px solid white;
+}
+.postContainer .postInfo > span {
+  display: flex;
+  gap: 0.1rem;
+  justify-content: center;
+  align-items: center;
+  font-size: x-large;
+}
+.comments {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-y: auto;
+  width: 100%;
+  height: 100%;
+}
+.comment {
+  display: grid;
+  gap: 0.1rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0.25rem;
+  height: auto;
+  grid-template: auto / 45px 1fr;
+  border-bottom: 1px solid gray;
+}
+.comment:first-child {
+  margin-top: 0.5rem;
+}
+.comment img {
+  width: 40px;
+  height: 40px;
+  border-radius: 3rem;
+  object-fit: cover;
+  object-position: 50%;
+}
+.addCommentContainer {
+  width: 100%;
+  position: relative;
+}
+#addComment {
+  /*this is the input*/
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: none;
+  transition: all 0.4s;
+}
+#addComment:focus {
+  background-color: var(--secHover);
+  color: white;
+  transition: all 0.4s;
+}
+#addComment:focus + button {
+  color: white;
+}
+#addComment:focus + button:disabled {
+  color: gray;
+}
+
+.addCommentContainer > button {
+  position: absolute;
+  width: 3rem;
+  z-index: 1;
+  height: 100%;
+  right: 4px;
+  background: none;
+  outline: none;
+  border: none;
 }
