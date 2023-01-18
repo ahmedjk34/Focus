@@ -10,6 +10,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { postsRef } from "../../firebaseBasics";
 import Post from "../Post/Post";
+import loading from "../images/loading.gif";
 function Feed() {
   const main = document.querySelector(".feed");
   const [posts, setPosts] = useState([]);
@@ -54,7 +55,7 @@ function Feed() {
         {posts.map((e) => (
           <Post data={e}></Post>
         ))}
-        <h3 className="loading hidden">Loading Posts...</h3>
+        <img className="loading hidden" src={loading}></img>
         <h3 className="caught hidden">You caught up with your friends ✅</h3>
       </div>
     </div>

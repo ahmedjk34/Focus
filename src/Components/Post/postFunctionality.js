@@ -33,3 +33,13 @@ export async function handleLike(likedUsers, id, setIcon) {
     });
   }
 }
+export async function addComment(comment, id) {
+  const currentPost = doc(db, "Posts", id);
+  await updateDoc(currentPost, {
+    comments: arrayUnion({
+      authorpfp: auth.currentUser.photoURL,
+      comment: comment,
+      commentAuthor: auth.currentUser.displayName,
+    }),
+  });
+}

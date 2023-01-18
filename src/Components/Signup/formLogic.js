@@ -24,6 +24,9 @@ export async function handleGoogle(e) {
     await addDoc(usersRef, {
       username: auth.currentUser.displayName,
       profilePicture: auth.currentUser.photoURL,
+      followers: [],
+      following: [],
+      bio: "Hi , im using Focus!",
     });
 }
 export async function handleEmailSignup(e, username, email, password) {
@@ -38,6 +41,9 @@ export async function handleEmailSignup(e, username, email, password) {
   await addDoc(usersRef, {
     username: auth.currentUser.displayName,
     profilePicture: auth.currentUser.photoURL,
+    followers: [],
+    following: [],
+    bio: "Hi , im using Focus!",
   });
 }
 export async function handleEmailLogin(e, email, password) {
