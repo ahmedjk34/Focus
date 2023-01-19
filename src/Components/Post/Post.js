@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { UserInfo } from "firebase/auth";
 import likeIcon from "../images/likeIcon.svg";
+import likedIcon from "../images/likedIcon.svg";
 import commentIcon from "../images/commentIcon.svg";
 import shareIcon from "../images/shareIcon.svg";
 import { getDoc, getDocs, onSnapshot, query, where } from "firebase/firestore";
-import { postsRef } from "../../firebaseBasics";
+import { auth, postsRef } from "../../firebaseBasics";
 import { handleLike } from "./postFunctionality";
 function Post({ data }) {
   const {
@@ -23,7 +24,7 @@ function Post({ data }) {
   const [commentsArray, setCommentsArray] = useState(comments);
   const [likedUsersArray, setLikedUsersArray] = useState(likedUsers);
   const [docId, setDocId] = useState("");
-  const [icon, setIcon] = useState(likeIcon);
+  const [isLiked, setIsLiked] = useState(false);
   const currentPost = query(postsRef, where("id", "==", id));
   (function () {
     getDocs(currentPost).then((snapshot) =>
@@ -34,11 +35,13 @@ function Post({ data }) {
     () =>
       onSnapshot(currentPost, (snapshot) =>
         snapshot.docChanges().forEach((change) => {
-          if (change.type === "modified") {
-            setCurrentLikes(change.doc.data().likesCounter);
-            setCommentsArray(change.doc.data().comments);
-            setLikedUsersArray(change.doc.data().likedUsers);
-          }
+          setIsLiked(false);
+          setCurrentLikes(change.doc.data().likesCounter);
+          setCommentsArray(change.doc.data().comments);
+          setLikedUsersArray(change.doc.data().likedUsers);
+          change.doc.data().likedUsers.forEach((user) => {
+            if (user === auth.currentUser.displayName) setIsLiked(true);
+          });
         })
       ),
     []
@@ -57,8 +60,8 @@ function Post({ data }) {
             <img
               id="likeIcon"
               className="icon"
-              src={icon}
-              onClick={() => handleLike(likedUsersArray, docId, setIcon)}
+              src={isLiked ? likedIcon : likeIcon}
+              onClick={() => handleLike(likedUsersArray, docId)}
             ></img>
           </span>
           <span>

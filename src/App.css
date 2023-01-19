@@ -11,9 +11,9 @@ font-family: 'Josefin Sans', sans-serif;
 }
 :root {
   --mainBgc: #1e293b;
-  --secBgc: #d1d5db;
+  --secBgc: #171717;
   --mainHover: #0f172a;
-  --secHover: #4b5563;
+  --secHover: #737373;
 }
 button:hover,
 input:hover {
@@ -164,6 +164,7 @@ body {
   align-items: center;
 
   background-color: var(--mainBgc);
+  border-bottom: 2px solid white;
 }
 .nav .logo {
   height: 4rem;
@@ -187,6 +188,10 @@ body {
   background-color: var(--secHover);
   transition: 0.4s all ease-in;
   color: white;
+}
+#search:focus::placeholder {
+  color: white;
+  transition: 0.4s all ease-in;
 }
 .profileNav {
   display: flex;
@@ -266,7 +271,7 @@ so i could style the post main page probably
   flex-direction: column;
   background-color: black;
   border-radius: 1rem;
-  box-shadow: 8px 12px rgb(26, 26, 26);
+  box-shadow: 0px 0px 8px white;
 }
 
 .feed .postHeader {
@@ -344,12 +349,15 @@ so i could style the post main page probably
   width: 40px;
   height: auto;
 }
+.caught {
+  color: white;
+}
 .hidden {
   visibility: hidden;
 }
 /*Post page*/
 .loadingPage {
-  width: 5vw;
+  width: clamp(3vw, 4rem, 5vw);
   height: auto;
   position: absolute;
   left: 50%;
@@ -371,7 +379,7 @@ so i could style the post main page probably
   height: clamp(40rem, 75%, 90rem);
   background-color: black;
   border-radius: 1rem;
-  box-shadow: 8px 12px rgb(26, 26, 26);
+  box-shadow: 0px 0px 4px white;
   grid-template: 25% 75% / 50% 50%;
   overflow-y: hidden;
 }
@@ -481,11 +489,15 @@ so i could style the post main page probably
   color: white;
   transition: all 0.4s;
 }
+#addComment:focus::placeholder {
+  color: white;
+  transition: all 0.4s;
+}
 #addComment:focus + button {
   color: white;
 }
 #addComment:focus + button:disabled {
-  color: gray;
+  color: rgb(70, 83, 92);
 }
 
 .addCommentContainer > button {
@@ -497,4 +509,161 @@ so i could style the post main page probably
   background: none;
   outline: none;
   border: none;
+}
+/*Profile page*/
+.profile {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template: 5rem minmax(12rem, 1fr) 2fr /1fr;
+  color: white;
+  font-family: "DM Sans", sans-serif;
+}
+.profileInfo {
+  background-color: rgb(26, 26, 26);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid white;
+}
+.profileInfo > img {
+  width: 100px;
+  height: 100px;
+  border-radius: 0.5rem;
+  box-shadow: 0px 0px 6px white;
+  object-fit: cover;
+  object-position: 50%;
+}
+.profileInfo > button {
+  position: absolute;
+  right: 15rem;
+  width: 10rem;
+  background: none;
+  border: none;
+  color: white;
+  font-family: inherit;
+  font-size: x-large;
+}
+.profileInfo > .follow {
+  background-color: var(--mainBgc);
+}
+.profileInfo > .following {
+  background-color: #445167;
+}
+.mainInfo {
+  display: flex;
+  gap: 2.5rem;
+}
+.postsSectionHolder {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.postsSection {
+  align-self: center;
+  justify-self: center;
+  display: grid;
+  width: 80%;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-auto-rows: clamp(27rem, 33%, 33rem);
+  gap: 1rem;
+}
+.postsSection > .post {
+  position: relative;
+  transition: all 0.3s;
+}
+.postsSection > .post:hover {
+  scale: 1.03;
+}
+.post > img {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  border-radius: 1rem;
+  box-shadow: 0px 0px 4px white;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50%;
+}
+.postOverlay {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.9);
+  height: 0%;
+  width: 100%;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  visibility: hidden;
+}
+.postOverlay > span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+.postsSection .post:hover .postOverlay {
+  transition: all 0.4s;
+  height: 100%;
+  visibility: visible;
+  cursor: pointer;
+}
+.postOverlay .icon {
+  width: 25px;
+  height: auto;
+}
+.postOverlay .icon:hover {
+  cursor: auto;
+  scale: 1;
+}
+.popUp {
+  position: absolute;
+  width: clamp(30rem, 35%, 40rem);
+  height: 80%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow-y: scroll;
+  background-color: black;
+  z-index: 2;
+  border-radius: 2rem;
+  padding: 1rem;
+  box-shadow: 0px 0px 12px black;
+}
+.popUp > div {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-bottom: 1px solid white;
+}
+.popUp img {
+  width: 40px;
+  height: 40px;
+  border-radius: 3rem;
+  object-fit: contain;
+}
+.close {
+  position: fixed;
+  bottom: 2rem;
+  width: 50%;
+  left: 50%;
+  transform: translate(-50%);
+}
+/*! mobile */
+@media only screen and (max-width: 850px) {
+  .postsSection {
+    padding: 0 0 100px 0;
+    grid-template-columns: 1fr;
+  }
 }
