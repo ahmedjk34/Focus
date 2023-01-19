@@ -3,39 +3,31 @@
 // (check the form logic)
 let isValid = true;
 export default function checkValidity(users = []) {
+  //initial checks
   const username = document.getElementById("username");
   const email = document.getElementById("email");
   const password = document.getElementById("password");
   //targets each input to apply general rules
   document.querySelectorAll("input").forEach((input) => {
-    input.addEventListener("input", (value) => {
-      restart(input);
-      checkIfEmpty(input);
-    });
-    //length checking
-    username &&
-      username.addEventListener("input", () => {
-        ifTooShort(username);
-        ifTooLong(username);
-      });
-    password.addEventListener("input", () => ifTooShort(password));
+    restart(input);
+    input.value && checkIfEmpty(input);
   });
+  //length checking
+  ifTooShort(username);
+  ifTooLong(username);
+  ifTooShort(password);
   //username duplication
-  username &&
-    username.addEventListener(
-      "input",
-      debounce(() => {
-        users.forEach((user) => {
-          if (user === username.value) {
-            username.nextElementSibling.innerHTML = `This User already Exists`;
-            isValid = false;
-          }
-        });
-      }, 500)
-    );
-  email.addEventListener("input", () => {
-    emailCheck();
-  });
+
+  debounce(() => {
+    users.forEach((user) => {
+      console.log(user);
+      if (user === username.value) {
+        username.nextElementSibling.innerHTML = `This User already Exists`;
+        isValid = false;
+      }
+    });
+  }, 500)();
+  emailCheck();
   //functions
   function restart(input) {
     input.nextElementSibling.innerHTML = "";

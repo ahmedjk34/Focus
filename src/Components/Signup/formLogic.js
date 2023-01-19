@@ -32,6 +32,8 @@ export async function handleGoogle(e) {
 export async function handleEmailSignup(e, username, email, password) {
   e.preventDefault();
   let isValid = checkValidity();
+  console.log(!isValid);
+  return;
   if (!isValid) return;
   await createUserWithEmailAndPassword(auth, email, password);
   await updateProfile(auth.currentUser, {

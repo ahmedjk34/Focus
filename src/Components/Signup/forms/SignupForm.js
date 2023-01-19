@@ -17,7 +17,10 @@ function SignupForm() {
         Username :
         <input
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={(e) => {
+            setUsername(e.target.value);
+            checkValidity(currentUsers);
+          }}
           type="text"
           minLength={3}
           maxLength={10}
@@ -32,7 +35,10 @@ function SignupForm() {
         Email :
         <input
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            checkValidity(currentUsers);
+          }}
           type="email"
           id="email"
           name="email"
@@ -45,7 +51,10 @@ function SignupForm() {
         Password :
         <input
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            checkValidity(currentUsers);
+          }}
           type="password"
           id="password"
           name="password"
