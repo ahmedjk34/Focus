@@ -1,11 +1,6 @@
-import React, { useEffect } from "react";
-import { signOut } from "firebase/auth";
-import { auth, postsRef, usersRef } from "../../firebaseBasics";
+import React from "react";
 import Nav from "./Nav";
 import Feed from "./Feed";
-import { doc, onSnapshot, serverTimestamp } from "firebase/firestore";
-import { addDoc } from "firebase/firestore";
-import { uuidv4 } from "@firebase/util";
 
 function Main() {
   return (

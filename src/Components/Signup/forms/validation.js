@@ -20,7 +20,6 @@ export default function checkValidity(users = []) {
 
   debounce(() => {
     users.forEach((user) => {
-      console.log(user);
       if (user === username.value) {
         username.nextElementSibling.innerHTML = `This User already Exists`;
         isValid = false;

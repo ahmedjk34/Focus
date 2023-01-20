@@ -171,9 +171,14 @@ body {
   width: auto;
   transition: 0.4s all ease-in;
 }
-#search {
+.searchHolder {
   width: clamp(15rem, 40%, 30rem);
   height: 2.5rem;
+  transition: 0.4s all ease-in;
+}
+#search {
+  width: 100%;
+  height: 100%;
   border: 2px double var(--mainHover);
   border-radius: 1rem;
   outline: none;
@@ -638,6 +643,8 @@ so i could style the post main page probably
   border-radius: 2rem;
   padding: 1rem;
   box-shadow: 0px 0px 12px black;
+  display: flex;
+  flex-direction: column;
 }
 .popUp > div {
   display: flex;
@@ -653,12 +660,99 @@ so i could style the post main page probably
   border-radius: 3rem;
   object-fit: contain;
 }
+
 .close {
   position: fixed;
   bottom: 2rem;
   width: 50%;
   left: 50%;
   transform: translate(-50%);
+  padding: 0.5rem;
+  font-family: "DM Sans", sans-serif;
+}
+/*add post page*/
+
+/*I re-used the post & post container styles from post page*/
+
+.popUp > .addCaption {
+  color: white;
+  width: 100%;
+  height: 20%;
+  position: relative;
+  border-bottom: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: "DM Sans", sans-serif;
+}
+.addCaption textarea {
+  resize: none;
+  width: 100%;
+  height: calc(100% - 2rem);
+  font-size: medium;
+  font-family: inherit;
+}
+.remainingLetters {
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  color: black;
+}
+.upload {
+  padding: 1rem;
+  font-size: large;
+  font-family: "DM Sans", sans-serif;
+  width: 50%;
+  align-self: center;
+  margin: 1rem 0;
+  background-color: var(--mainBgc);
+  color: white;
+  transition: 0.4s all;
+  text-align: center;
+}
+.popUp input {
+  display: none;
+}
+.upload:hover {
+  background-color: var(--mainHover);
+  cursor: pointer;
+}
+/*to fix general styling*/
+.popUp:hover {
+  scale: 1;
+  cursor: auto;
+}
+.searchPopup {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--secHover);
+  height: 15rem;
+  width: 80%;
+  top: calc(100% + 0.05rem);
+  left: 50%;
+  transform: translate(-50%);
+  border: 2px solid var(--mainHover);
+  border-radius: 0.75rem;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+.searchPopup > div {
+  padding: 0.25rem;
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid white;
+}
+.searchPopup img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  object-position: 50%;
+  border-radius: 3rem;
 }
 /*! mobile */
 @media only screen and (max-width: 850px) {

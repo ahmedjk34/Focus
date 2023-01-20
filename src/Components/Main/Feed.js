@@ -52,8 +52,8 @@ function Feed() {
   return (
     <div className="feedHolder">
       <div className="feed" onScroll={fetchData}>
-        {posts.map((e) => (
-          <Post data={e}></Post>
+        {posts.map((e, index) => (
+          <Post data={e} key={index}></Post>
         ))}
         <img className="loading hidden" src={loading}></img>
         <h3 className="caught hidden">You caught up with your friends ✅</h3>

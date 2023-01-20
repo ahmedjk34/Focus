@@ -24,13 +24,13 @@ function App() {
   return (
     <Routes>
       <Route
-        path="/"
+        path="/focus/"
         element={
           <>{user ? <Main /> : <Signup currentUsers={currentUsers} />}</>
         }
       ></Route>
-      <Route path="/post/:id" element={<PostPage />}></Route>
-      <Route path="/profile/:username" element={<Profile />}></Route>
+      <Route path="focus/post/:id" element={<PostPage />}></Route>
+      <Route path="focus/profile/:username" element={<Profile />}></Route>
     </Routes>
   );
 }
