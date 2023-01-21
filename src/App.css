@@ -761,6 +761,38 @@ so i could style the post main page probably
   object-position: 50%;
   border-radius: 3rem;
 }
+.copyUrl {
+  height: 12rem;
+  border-radius: 0.3rem;
+  border: 2px solid var(--mainBgc);
+  box-shadow: none;
+  font-family: "DM Sans", sans-serif;
+  display: flex;
+  padding: 0.5rem;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.8rem;
+}
+.copyUrl .url {
+  background-color: white;
+  color: black;
+}
+.copyUrl > div {
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+}
+.copyUrl button {
+  padding: 1rem;
+  font-size: large;
+  font-family: "DM Sans", sans-serif;
+  width: 40%;
+  align-self: center;
+  background-color: var(--mainBgc);
+  color: white;
+  transition: 0.4s all;
+  text-align: center;
+}
 /*! mobile */
 @media only screen and (max-width: 850px) {
   .postsSection {

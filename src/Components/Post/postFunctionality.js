@@ -45,13 +45,13 @@ export async function addComment(comment, id) {
 export async function publishPost(imgToUpload, caption) {
   if (imgToUpload == null) {
     alert("You can't upload a post without an image!");
-    return;
+    return false;
   }
   if (imgToUpload.size > 2097152) {
     alert(
       "Image size exceeded , please make sure that the image is less that 2 mb"
     );
-    return;
+    return false;
   }
   const imgRef = ref(storage, `posts/${imgToUpload.name + uuidv4()}`);
   await uploadBytes(imgRef, imgToUpload);
@@ -68,4 +68,5 @@ export async function publishPost(imgToUpload, caption) {
     url: "",
     comments: [],
   });
+  return true;
 }

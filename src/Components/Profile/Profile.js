@@ -17,10 +17,12 @@ import commentIcon from "../images/commentIcon.svg";
 import FollowersPopUp from "./FollowersPopUp";
 import FollowingPopUp from "./FollowingPopUp";
 import handelFollow from "./profileLogic";
+import { useNavigate } from "react-router-dom";
 function Profile() {
   const { username } = useParams();
   const [userInfo, setUserInfo] = useState({});
   const [userPosts, setUserPosts] = useState([]);
+  const [postsId, setPostsId] = useState([]);
   const [followingArray, setFollowingArray] = useState([]);
   const [followersArray, setFollowersArray] = useState([]);
   const [showPage, setShowPage] = useState(false);
@@ -28,6 +30,7 @@ function Profile() {
   const [showFollowersPopUp, setShowFollowersPopUp] = useState(false);
   const [showFollowingPopUp, setShowFollowingPopUp] = useState(false);
   const [userId, setUserId] = useState("");
+  const navigation = useNavigate();
   useEffect(() => {
     const userQ = query(usersRef, where("username", "==", username));
     const postsQ = query(postsRef, where("author", "==", username));
@@ -49,6 +52,7 @@ function Profile() {
     onSnapshot(postsQ, (snapshot) => {
       snapshot.docChanges().forEach((doc) => {
         setUserPosts((prev) => [...prev, doc.doc.data()]);
+        setPostsId((prev) => [...prev, doc.doc.id]);
         document.querySelector(".loadingPage").style.display = "none";
         setShowPage(true);
         document.querySelector(".loadingPage").style.display = "none";
@@ -106,10 +110,13 @@ function Profile() {
           </div>
           <div className="postsSectionHolder">
             <div className="postsSection">
-              {userPosts.map((post) => (
+              {userPosts.map((post, index) => (
                 <div className="post">
                   <img src={post.img}></img>
-                  <div className="postOverlay">
+                  <div
+                    className="postOverlay"
+                    onClick={(e) => navigation(`/post/${postsId[index]}`)}
+                  >
                     <span>
                       {post.likesCounter}{" "}
                       <img src={likeIcon} className="icon"></img>

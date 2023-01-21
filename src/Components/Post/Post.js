@@ -8,6 +8,7 @@ import { getDoc, getDocs, onSnapshot, query, where } from "firebase/firestore";
 import { auth, postsRef } from "../../firebaseBasics";
 import { handleLike } from "./postFunctionality";
 import { useNavigate } from "react-router-dom";
+import CopyUrl from "./CopyUrl";
 function Post({ data }) {
   const {
     author,
@@ -26,6 +27,7 @@ function Post({ data }) {
   const [likedUsersArray, setLikedUsersArray] = useState(likedUsers);
   const [docId, setDocId] = useState("");
   const [isLiked, setIsLiked] = useState(false);
+  const [showCopy, setShowCopy] = useState(false);
   const navigation = useNavigate();
 
   const currentPost = query(postsRef, where("id", "==", id));
@@ -78,8 +80,15 @@ function Post({ data }) {
             ></img>
           </span>
           <span>
-            <img className="icon" src={shareIcon}></img>
+            <img
+              className="icon"
+              src={shareIcon}
+              onClick={(e) => setShowCopy(true)}
+            ></img>
           </span>
+          {showCopy && (
+            <CopyUrl id={docId} close={(e) => setShowCopy(false)}></CopyUrl>
+          )}
         </div>
         <div className="caption">
           <h4>{author} -</h4>

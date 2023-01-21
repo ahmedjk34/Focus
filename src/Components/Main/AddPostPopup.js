@@ -35,8 +35,10 @@ function AddPostPopup({ setShowPopup }) {
       <button
         className="upload"
         onClick={(e) => {
-          publishPost(imgToUpload, caption);
-          navigation(`profile/${auth.currentUser.displayName}`);
+          const isValid = publishPost(imgToUpload, caption);
+          isValid.then((valid) => {
+            if (valid) navigation(`profile/${auth.currentUser.displayName}`);
+          });
           setShowPopup(false);
         }}
       >
