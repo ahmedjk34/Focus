@@ -1,10 +1,14 @@
 import React from "react";
 import { useState } from "react";
+import { auth } from "../../firebaseBasics";
 import { publishPost } from "../Post/postFunctionality";
+import { useNavigate } from "react-router-dom";
+
 function AddPostPopup({ setShowPopup }) {
   const [remaining, setRemaining] = useState(30);
   const [caption, setCaption] = useState("");
   const [imgToUpload, setImgToUpload] = useState(null);
+  const navigation = useNavigate();
   return (
     <div className="popUp">
       <div className="addCaption">
@@ -32,6 +36,7 @@ function AddPostPopup({ setShowPopup }) {
         className="upload"
         onClick={(e) => {
           publishPost(imgToUpload, caption);
+          navigation(`profile/${auth.currentUser.displayName}`);
           setShowPopup(false);
         }}
       >

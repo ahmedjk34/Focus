@@ -7,6 +7,7 @@ import shareIcon from "../images/shareIcon.svg";
 import { getDoc, getDocs, onSnapshot, query, where } from "firebase/firestore";
 import { auth, postsRef } from "../../firebaseBasics";
 import { handleLike } from "./postFunctionality";
+import { useNavigate } from "react-router-dom";
 function Post({ data }) {
   const {
     author,
@@ -25,6 +26,8 @@ function Post({ data }) {
   const [likedUsersArray, setLikedUsersArray] = useState(likedUsers);
   const [docId, setDocId] = useState("");
   const [isLiked, setIsLiked] = useState(false);
+  const navigation = useNavigate();
+
   const currentPost = query(postsRef, where("id", "==", id));
   (function () {
     getDocs(currentPost).then((snapshot) =>
@@ -49,8 +52,11 @@ function Post({ data }) {
   return (
     <div className="post">
       <div className="postHeader">
-        <img src={authorPfp}></img>
-        <h3>{author}</h3>
+        <img
+          src={authorPfp}
+          onClick={(e) => navigation(`/profile/${author}`)}
+        ></img>
+        <h3 onClick={(e) => navigation(`/profile/${author}`)}>{author}</h3>
       </div>
       <div className="postMain">
         <img src={img}></img>
@@ -65,7 +71,11 @@ function Post({ data }) {
             ></img>
           </span>
           <span>
-            <img className="icon" src={commentIcon}></img>
+            <img
+              className="icon"
+              src={commentIcon}
+              onClick={(e) => navigation(`/post/${docId}`)}
+            ></img>
           </span>
           <span>
             <img className="icon" src={shareIcon}></img>
@@ -77,7 +87,11 @@ function Post({ data }) {
         </div>
       </div>
       <div className="postFooter">
-        <h5>{commentsArray.length > 2 ? "View all comments" : null}</h5>
+        {commentsArray.length > 2 ? (
+          <h5 onClick={(e) => navigation(`/post/${docId}`)}>
+            View all comments
+          </h5>
+        ) : null}
         <p>
           {commentsArray[0]
             ? `${commentsArray[0].commentAuthor} : ${commentsArray[0].comment}`

@@ -6,7 +6,7 @@ import { useState } from "react";
 import AddPostPopup from "./AddPostPopup";
 import searchFun from "./searchFunctionality";
 import SearchPopup from "./SearchPopup";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 //To-Do : add an onclick to the image that returns to the main page
 function Nav() {
   const navigation = useNavigate();
@@ -17,11 +17,7 @@ function Nav() {
   return (
     <div className="nav">
       {showPopup && <AddPostPopup setShowPopup={setShowPopup}></AddPostPopup>}
-      <img
-        src={logo}
-        className="logo"
-        onClick={() => navigation("/focus")}
-      ></img>
+      <img src={logo} className="logo" onClick={() => navigation("/")}></img>
       <div className="searchHolder">
         <input
           type="search"
@@ -42,7 +38,7 @@ function Nav() {
         <img src={auth.currentUser.photoURL} alt="pfp"></img>
         <h3>{auth.currentUser.displayName} </h3>
         <div className="dropDown">
-          <a>Profile</a>
+          <Link to={`/profile/${auth.currentUser.displayName}`}>Profile</Link>
           <a onClick={(e) => setShowPopup(true)}>Add a post</a>
           <a onClick={(e) => signOut(auth)}>Sign out</a>
         </div>

@@ -24,6 +24,13 @@ body {
   when scrolling*/
   background-color: var(--secBgc);
 }
+a,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+  color: inherit;
+}
 ::-webkit-scrollbar {
   /*hide the scroll bar*/
   display: none;
