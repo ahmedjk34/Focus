@@ -9,6 +9,7 @@ function AddPostPopup({ setShowPopup }) {
   const [caption, setCaption] = useState("");
   const [imgToUpload, setImgToUpload] = useState(null);
   const navigation = useNavigate();
+
   return (
     <div className="popUp">
       <div className="addCaption">

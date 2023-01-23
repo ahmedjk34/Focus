@@ -10,6 +10,7 @@ import { handleLike } from "./postFunctionality";
 import { useNavigate } from "react-router-dom";
 import CopyUrl from "./CopyUrl";
 function Post({ data }) {
+  //To-do : delete url from firebase & all functions
   const {
     author,
     authorPfp,
@@ -29,7 +30,6 @@ function Post({ data }) {
   const [isLiked, setIsLiked] = useState(false);
   const [showCopy, setShowCopy] = useState(false);
   const navigation = useNavigate();
-
   const currentPost = query(postsRef, where("id", "==", id));
   (function () {
     getDocs(currentPost).then((snapshot) =>

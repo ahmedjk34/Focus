@@ -1,11 +1,4 @@
-import {
-  arrayRemove,
-  arrayUnion,
-  onSnapshot,
-  query,
-  updateDoc,
-  where,
-} from "firebase/firestore";
+import { onSnapshot, query, where } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { auth, postsRef, usersRef } from "../../firebaseBasics";
@@ -18,6 +11,8 @@ import FollowersPopUp from "./FollowersPopUp";
 import FollowingPopUp from "./FollowingPopUp";
 import handelFollow from "./profileLogic";
 import { useNavigate } from "react-router-dom";
+import pencilIcon from "../images/pencil.svg";
+import UpdateImgPopup from "./UpdateImgPopup";
 function Profile() {
   const { username } = useParams();
   const [userInfo, setUserInfo] = useState({});
@@ -27,11 +22,14 @@ function Profile() {
   const [followersArray, setFollowersArray] = useState([]);
   const [showPage, setShowPage] = useState(false);
   const [doesFollow, setDoesFollow] = useState(false);
+  const [isOwner, setIsOwner] = useState(null);
   const [showFollowersPopUp, setShowFollowersPopUp] = useState(false);
   const [showFollowingPopUp, setShowFollowingPopUp] = useState(false);
   const [userId, setUserId] = useState("");
+  const [showEdit, setShowEdit] = useState(false);
   const navigation = useNavigate();
   useEffect(() => {
+    setIsOwner(auth.currentUser.displayName === username);
     const userQ = query(usersRef, where("username", "==", username));
     const postsQ = query(postsRef, where("author", "==", username));
     onSnapshot(userQ, (snapshot) => {
@@ -40,8 +38,9 @@ function Profile() {
         setUserInfo(doc.data());
         setFollowersArray(doc.data().followers);
         setFollowingArray(doc.data().following);
+
         //incase the array is empty (forEach wont work)
-        if (doc.data().followers.length == 0) setDoesFollow(false);
+        if (doc.data().followers.length === 0) setDoesFollow(false);
         doc.data().followers.forEach((follower) => {
           setDoesFollow(false);
           if (follower.username === auth.currentUser.displayName)
@@ -50,17 +49,18 @@ function Profile() {
       });
     });
     onSnapshot(postsQ, (snapshot) => {
+      if (snapshot.empty) {
+        setShowPage(true);
+        document.querySelector(".loadingPage").style.display = "none";
+      }
       snapshot.docChanges().forEach((doc) => {
         setUserPosts((prev) => [...prev, doc.doc.data()]);
         setPostsId((prev) => [...prev, doc.doc.id]);
         document.querySelector(".loadingPage").style.display = "none";
         setShowPage(true);
-        document.querySelector(".loadingPage").style.display = "none";
-        setShowPage(true);
       });
     });
-  }, []);
-  //MAKE SURE TO DELETE RAMA
+  }, [username]); //to reload upon changing the dynamic URL
   if (!auth.currentUser && showPage) return <ErrorPage />;
   return (
     <div className="profile">
@@ -81,22 +81,30 @@ function Profile() {
           )}
           <Nav></Nav>
           <div className="profileInfo">
-            {doesFollow ? (
-              <button
-                onClick={(e) => handelFollow(userInfo, userId)}
-                className="following"
-              >
-                Following -
-              </button>
-            ) : (
-              <button
-                onClick={(e) => handelFollow(userInfo, userId)}
-                className="follow"
-              >
-                Follow +
-              </button>
-            )}
-            <img src={userInfo.profilePicture}></img>
+            {!isOwner && //So the follow button won't appear
+              (doesFollow ? (
+                <button
+                  onClick={(e) => handelFollow(userInfo, userId)}
+                  className="following"
+                >
+                  Following -
+                </button>
+              ) : (
+                <button
+                  onClick={(e) => handelFollow(userInfo, userId)}
+                  className="follow"
+                >
+                  Follow +
+                </button>
+              ))}
+            <div className="pfpHolder">
+              <img src={userInfo.profilePicture} className="pfp"></img>
+              {isOwner && (
+                <div className="postOverlay" onClick={(e) => setShowEdit(true)}>
+                  <img src={pencilIcon} className="pencilIcon"></img>
+                </div>
+              )}
+            </div>
             <h3>@{userInfo.username}</h3>
             <div className="mainInfo">
               <h4 onClick={(e) => setShowFollowersPopUp(true)}>
@@ -109,6 +117,9 @@ function Profile() {
             </div>
           </div>
           <div className="postsSectionHolder">
+            {showEdit && (
+              <UpdateImgPopup setShowEdit={setShowEdit} userId={userId} />
+            )}
             <div className="postsSection">
               {userPosts.map((post, index) => (
                 <div className="post">

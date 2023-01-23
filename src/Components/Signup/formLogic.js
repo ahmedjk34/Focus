@@ -8,32 +8,32 @@ import {
 import { addDoc } from "firebase/firestore";
 import { usersRef, auth } from "../../firebaseBasics";
 import { currentUsers } from "../../App";
-import checkValidity from "./forms/validation";
 let anonUser =
   "https://images.nightcafe.studio//assets/profile.png?tr=w-1600,c-at_max";
+
 export async function handleGoogle(e) {
   e.preventDefault();
   const provider = new GoogleAuthProvider();
   await signInWithPopup(auth, provider);
   //To prevent document duplication
   let userNotShown = true;
-  currentUsers.forEach((user) => {
-    if (user === auth.currentUser.displayName) userNotShown = false;
-  });
+  //used a for...of loop for performance optimization
+  for (let user of currentUsers) {
+    if (user === auth.currentUser.displayName) {
+      userNotShown = false;
+      break;
+    }
+  }
   if (userNotShown)
     await addDoc(usersRef, {
       username: auth.currentUser.displayName,
       profilePicture: auth.currentUser.photoURL,
       followers: [],
       following: [],
-      bio: "Hi , im using Focus!",
     });
 }
-export async function handleEmailSignup(e, username, email, password) {
+export async function handleEmailSignup(e, username, email, password, isValid) {
   e.preventDefault();
-  let isValid = checkValidity();
-  console.log(!isValid);
-  return;
   if (!isValid) return;
   await createUserWithEmailAndPassword(auth, email, password);
   await updateProfile(auth.currentUser, {

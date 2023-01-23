@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import checkValidity from "./validation";
 import { handleEmailSignup } from "../formLogic";
 import { currentUsers } from "../../../App";
 function SignupForm() {
-  useEffect(() => {
-    checkValidity(currentUsers);
-    return;
-  }, []);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -66,7 +62,10 @@ function SignupForm() {
       </label>
       <button
         id="formBtn"
-        onClick={(e) => handleEmailSignup(e, username, email, password)}
+        onClick={(e) => {
+          let isValid = checkValidity(currentUsers);
+          handleEmailSignup(e, username, email, password, isValid);
+        }}
       >
         Signup
       </button>

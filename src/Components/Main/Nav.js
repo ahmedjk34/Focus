@@ -7,17 +7,27 @@ import AddPostPopup from "./AddPostPopup";
 import searchFun from "./searchFunctionality";
 import SearchPopup from "./SearchPopup";
 import { Link, useNavigate } from "react-router-dom";
-//To-Do : add an onclick to the image that returns to the main page
 function Nav() {
-  const navigation = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
   const [showSearchPopup, setShowSearchPopup] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [matchingUsers, setMatchingUsers] = useState([]);
+  const navigation = useNavigate();
   return (
     <div className="nav">
       {showPopup && <AddPostPopup setShowPopup={setShowPopup}></AddPostPopup>}
-      <img src={logo} className="logo" onClick={() => navigation("/")}></img>
+      <div className="mobileContainer">
+        <img src={logo} className="logo" onClick={() => navigation("/")}></img>
+        <div className="profileNav mobile">
+          <img src={auth.currentUser.photoURL} alt="pfp"></img>
+          <h3>{auth.currentUser.displayName} </h3>
+          <div className="dropDown">
+            <Link to={`/profile/${auth.currentUser.displayName}`}>Profile</Link>
+            <a onClick={(e) => setShowPopup(true)}>Add a post</a>
+            <a onClick={(e) => signOut(auth)}>Sign out</a>
+          </div>
+        </div>
+      </div>
       <div className="searchHolder">
         <input
           type="search"
@@ -34,11 +44,17 @@ function Nav() {
         ></input>
         {showSearchPopup && <SearchPopup matchingUsers={matchingUsers} />}
       </div>
-      <div className="profileNav">
+      <div className="profileNav desktop">
         <img src={auth.currentUser.photoURL} alt="pfp"></img>
         <h3>{auth.currentUser.displayName} </h3>
         <div className="dropDown">
-          <Link to={`/profile/${auth.currentUser.displayName}`}>Profile</Link>
+          <a
+            onClick={(e) => {
+              navigation(`/profile/${auth.currentUser.displayName}`);
+            }}
+          >
+            Profile
+          </a>
           <a onClick={(e) => setShowPopup(true)}>Add a post</a>
           <a onClick={(e) => signOut(auth)}>Sign out</a>
         </div>

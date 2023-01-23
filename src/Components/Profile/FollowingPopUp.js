@@ -1,7 +1,6 @@
 import React from "react";
 
 function FollowingPopUp({ following, close }) {
-  console.log(following);
   return (
     <div className="popUp">
       {following.map((following) => (

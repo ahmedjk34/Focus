@@ -4,7 +4,7 @@ function CopyUrl({ id, close }) {
   return (
     <div className="popUp copyUrl">
       <h2>Copy URL</h2>
-      <h4 className="url">{`https://ahmedjk34.github.io/focus/#/post/${id}`}</h4>
+      <p className="url">{`https://ahmedjk34.github.io/focus/#/post/${id}`}</p>
       <div>
         <button
           onClick={() => {
