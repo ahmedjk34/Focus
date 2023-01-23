@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/focus/static/css/main.ec4a967e.css",
-    "main.js": "/focus/static/js/main.910baa9d.js",
+    "main.css": "/focus/static/css/main.a99af920.css",
+    "main.js": "/focus/static/js/main.b0dc948a.js",
     "static/media/bgc.png": "/focus/static/media/bgc.4aa8d6b5c8c30c3f24e8.png",
     "static/media/loading.gif": "/focus/static/media/loading.17778b58ddd30afa1db1.gif",
     "static/media/logo-light.png": "/focus/static/media/logo-light.a8e07fc398d84a2de581.png",
@@ -11,11 +11,11 @@
     "static/media/google.svg": "/focus/static/media/google.4bd1a070ddc39ae6d9c11a99fcc99883.svg",
     "static/media/commentIcon.svg": "/focus/static/media/commentIcon.c84add8d30fed2aacb51efe60aaca8b7.svg",
     "static/media/likedIcon.svg": "/focus/static/media/likedIcon.5d5adaeeede288908ca1541cc3a58f17.svg",
-    "main.ec4a967e.css.map": "/focus/static/css/main.ec4a967e.css.map",
-    "main.910baa9d.js.map": "/focus/static/js/main.910baa9d.js.map"
+    "main.a99af920.css.map": "/focus/static/css/main.a99af920.css.map",
+    "main.b0dc948a.js.map": "/focus/static/js/main.b0dc948a.js.map"
   },
   "entrypoints": [
-    "static/css/main.ec4a967e.css",
-    "static/js/main.910baa9d.js"
+    "static/css/main.a99af920.css",
+    "static/js/main.b0dc948a.js"
   ]
 }
