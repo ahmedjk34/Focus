@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/focus/static/css/main.9b5e4e82.css",
-    "main.js": "/focus/static/js/main.f729fbfa.js",
+    "main.css": "/focus/static/css/main.0ecce37d.css",
+    "main.js": "/focus/static/js/main.b8f8984b.js",
     "static/media/bgc.png": "/focus/static/media/bgc.4aa8d6b5c8c30c3f24e8.png",
     "static/media/loading.gif": "/focus/static/media/loading.17778b58ddd30afa1db1.gif",
     "static/media/logo-light.png": "/focus/static/media/logo-light.a8e07fc398d84a2de581.png",
@@ -11,11 +11,12 @@
     "static/media/google.svg": "/focus/static/media/google.4bd1a070ddc39ae6d9c11a99fcc99883.svg",
     "static/media/commentIcon.svg": "/focus/static/media/commentIcon.c84add8d30fed2aacb51efe60aaca8b7.svg",
     "static/media/likedIcon.svg": "/focus/static/media/likedIcon.5d5adaeeede288908ca1541cc3a58f17.svg",
-    "main.9b5e4e82.css.map": "/focus/static/css/main.9b5e4e82.css.map",
-    "main.f729fbfa.js.map": "/focus/static/js/main.f729fbfa.js.map"
+    "static/media/pencil.svg": "/focus/static/media/pencil.96d54cb0e19f4c8a3729aa2fe7de9fff.svg",
+    "main.0ecce37d.css.map": "/focus/static/css/main.0ecce37d.css.map",
+    "main.b8f8984b.js.map": "/focus/static/js/main.b8f8984b.js.map"
   },
   "entrypoints": [
-    "static/css/main.9b5e4e82.css",
-    "static/js/main.f729fbfa.js"
+    "static/css/main.0ecce37d.css",
+    "static/js/main.b8f8984b.js"
   ]
 }
