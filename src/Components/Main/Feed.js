@@ -33,7 +33,8 @@ function Feed() {
     const caught = document.querySelector(".caught");
 
     let triggerHeight = main.scrollTop + main.clientHeight;
-    if (triggerHeight > main.scrollHeight) {
+
+    if (Math.ceil(triggerHeight) >= main.scrollHeight) {
       loading.classList.add("hidden");
       const documents = await getDocs(postsQuery);
       if (documents.empty) {
