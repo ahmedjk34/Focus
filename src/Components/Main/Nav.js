@@ -42,7 +42,12 @@ function Nav() {
           }}
           placeholder="Search"
         ></input>
-        {showSearchPopup && <SearchPopup matchingUsers={matchingUsers} />}
+        {showSearchPopup && (
+          <SearchPopup
+            matchingUsers={matchingUsers}
+            setShowPopup={setShowSearchPopup}
+          />
+        )}
       </div>
       <div className="profileNav desktop">
         <img src={auth.currentUser.photoURL} alt="pfp"></img>
@@ -56,7 +61,14 @@ function Nav() {
             Profile
           </a>
           <a onClick={(e) => setShowPopup(true)}>Add a post</a>
-          <a onClick={(e) => signOut(auth)}>Sign out</a>
+          <a
+            onClick={(e) => {
+              signOut(auth);
+              navigation("/");
+            }}
+          >
+            Sign out
+          </a>
         </div>
       </div>
     </div>

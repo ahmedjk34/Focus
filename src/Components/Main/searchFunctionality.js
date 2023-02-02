@@ -8,9 +8,9 @@ export default function searchFun(currentValue, setMatchingUsers) {
     documents.forEach((doc) => {
       if (doc.data().username.includes(currentValue)) {
         users.push(doc.data());
-        setMatchingUsers(users);
       }
     });
+    setMatchingUsers(users);
   }, 500)();
 }
 function debounce(fn, delay) {

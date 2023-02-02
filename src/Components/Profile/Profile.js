@@ -1,4 +1,4 @@
-import { onSnapshot, query, where } from "firebase/firestore";
+import { onSnapshot, query, where, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { auth, postsRef, usersRef } from "../../firebaseBasics";
@@ -13,6 +13,24 @@ import handelFollow from "./profileLogic";
 import { useNavigate } from "react-router-dom";
 import pencilIcon from "../images/pencil.svg";
 import UpdateImgPopup from "./UpdateImgPopup";
+
+//to fetch the profile picture to the follow(er/ing) array
+function createFollowArray(array, setArray) {
+  array.forEach((current) => {
+    //to reset the comment array
+    setArray([]);
+    //gets the current follow(er,ing) info
+    const q = query(usersRef, where("username", "==", current.username));
+    let pfp;
+    getDocs(q).then((documents) => {
+      /*this simply adds a pfp to the comment obj
+      from the BaaS*/
+      documents.docs.forEach((user) => (pfp = user.data().profilePicture));
+      const withPfp = { ...current, pfp: pfp };
+      setArray((prev) => [...prev, withPfp]);
+    });
+  });
+}
 function Profile() {
   const { username } = useParams();
   const [userInfo, setUserInfo] = useState({});
@@ -32,27 +50,32 @@ function Profile() {
     setIsOwner(auth.currentUser.displayName === username);
     const userQ = query(usersRef, where("username", "==", username));
     const postsQ = query(postsRef, where("author", "==", username));
+    //gets the user
     onSnapshot(userQ, (snapshot) => {
       snapshot.docs.forEach((doc) => {
         setUserId(doc.id);
         setUserInfo(doc.data());
-        setFollowersArray(doc.data().followers);
-        setFollowingArray(doc.data().following);
-
+        createFollowArray(doc.data().followers, setFollowersArray);
+        createFollowArray(doc.data().following, setFollowingArray);
         //incase the array is empty (forEach wont work)
         if (doc.data().followers.length === 0) setDoesFollow(false);
-        doc.data().followers.forEach((follower) => {
-          setDoesFollow(false);
-          if (follower.username === auth.currentUser.displayName)
+        setDoesFollow(false);
+        for (const follower of doc.data().followers) {
+          if (follower.username === auth.currentUser.displayName) {
             setDoesFollow(true);
-        });
+            break;
+          }
+        }
       });
     });
+    //gets the users posts
     onSnapshot(postsQ, (snapshot) => {
       if (snapshot.empty) {
         setShowPage(true);
         document.querySelector(".loadingPage").style.display = "none";
       }
+      setUserPosts([]);
+      setPostsId([]);
       snapshot.docChanges().forEach((doc) => {
         setUserPosts((prev) => [...prev, doc.doc.data()]);
         setPostsId((prev) => [...prev, doc.doc.id]);

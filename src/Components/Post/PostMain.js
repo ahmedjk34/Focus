@@ -4,7 +4,7 @@ import likeIcon from "../images/likeIcon.svg";
 import likedIcon from "../images/likedIcon.svg";
 import shareIcon from "../images/shareIcon.svg";
 import { getDoc, getDocs, onSnapshot, query, where } from "firebase/firestore";
-import { postsRef, auth } from "../../firebaseBasics";
+import { postsRef, auth, usersRef } from "../../firebaseBasics";
 import { addComment } from "./postFunctionality";
 import { handleLike } from "./postFunctionality";
 import { useNavigate } from "react-router-dom";
@@ -43,7 +43,24 @@ function PostMain({ data }) {
         snapshot.docChanges().forEach((change) => {
           setIsLiked(false);
           setCurrentLikes(change.doc.data().likesCounter);
-          setCommentsArray(change.doc.data().comments);
+          //reset the comment array
+          setCommentsArray([]);
+          //add comments
+          change.doc.data().comments.forEach((comment) => {
+            const commentWriterQ = query(
+              usersRef,
+              where("username", "==", comment.commentAuthor)
+            );
+            let pfp;
+            getDocs(commentWriterQ).then((documents) => {
+              documents.docs.forEach(
+                (user) => (pfp = user.data().profilePicture)
+              );
+              const commentWithPfp = { ...comment, authorpfp: pfp };
+
+              setCommentsArray((prev) => [...prev, commentWithPfp]);
+            });
+          });
           setLikedUsersArray(change.doc.data().likedUsers);
           change.doc.data().likedUsers.forEach((user) => {
             if (user === auth.currentUser.displayName) setIsLiked(true);

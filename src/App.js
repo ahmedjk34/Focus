@@ -14,14 +14,15 @@ export let currentUsers = [];
 function App() {
   const [user, setUser] = useState(auth.currentUser);
   useEffect(() => {
+    //this is used for username validation
     onSnapshot(usersRef, (documents) => {
       currentUsers = [];
       documents.docs.forEach((doc) => {
         currentUsers.push(doc.data().username);
       });
     });
+    onAuthStateChanged(auth, (u) => setUser(u));
   }, []);
-  onAuthStateChanged(auth, (u) => setUser(u));
   return (
     <Routes>
       <Route path="/" element={<>{user ? <Main /> : <Signup />}</>}></Route>

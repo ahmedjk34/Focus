@@ -8,6 +8,7 @@ import { updateProfile } from "firebase/auth";
 export default async function handelFollow(userInfo, userId) {
   const docRef = doc(db, "Users", userId);
   let doesFollow = false;
+
   userInfo.followers.forEach((follower) => {
     if (follower.username === auth.currentUser.displayName) doesFollow = true;
   });
@@ -15,14 +16,12 @@ export default async function handelFollow(userInfo, userId) {
     await updateDoc(docRef, {
       followers: arrayRemove({
         username: auth.currentUser.displayName,
-        pfp: auth.currentUser.photoURL,
       }),
     });
   } else {
     await updateDoc(docRef, {
       followers: arrayUnion({
         username: auth.currentUser.displayName,
-        pfp: auth.currentUser.photoURL,
       }),
     });
   }
